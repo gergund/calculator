@@ -90,12 +90,16 @@
             }
 
             .wrapper {
+                margin-left: auto;
+                margin-right: auto;
+                width: 600px;
                 background: #fff;
                 max-width: 450px;
                 width: 100%;
                 border-radius: 16px;
                 box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
                 0 32px 64px -48px rgba(0, 0, 0, 0.5);
+                padding: 20px;
             }
 
             a {
@@ -103,113 +107,13 @@
             }
 
             /* Login & Signup Form CSS Start */
-            .form {
-                padding: 25px 30px;
-            }
 
-            /*.form header {
+            .header {
+                text-align: center;
                 font-size: 25px;
                 font-weight: 600;
                 padding-bottom: 10px;
                 border-bottom: 1px solid #e6e6e6;
-            } */
-
-            .form form {
-                margin: 20px 0;
-            }
-
-            .form form .error-text {
-                color: #721c24;
-                padding: 8px 10px;
-                text-align: center;
-                border-radius: 5px;
-                background: #f8d7da;
-                border: 1px solid #f5c6cb;
-                margin-bottom: 10px;
-            }
-
-            .form form .name-details {
-                display: flex;
-            }
-
-            .form .name-details .field:first-child {
-                margin-right: 10px;
-            }
-
-            .form .name-details .field:last-child {
-                margin-left: 10px;
-            }
-
-            .form form .field {
-                display: flex;
-                margin-bottom: 10px;
-                flex-direction: column;
-                position: relative;
-            }
-
-            .form form .field label {
-                margin-bottom: 2px;
-            }
-
-            .form form .input input {
-                height: 40px;
-                width: 100%;
-                font-size: 16px;
-                padding: 0 10px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-            }
-
-            .form form .field input {
-                outline: none;
-            }
-
-            .form form .image input {
-                font-size: 17px;
-            }
-
-            .form form .button input {
-                height: 45px;
-                border: none;
-                color: #fff;
-                font-size: 17px;
-                background: #333;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-top: 13px;
-            }
-
-            .form form .field i {
-                position: absolute;
-                right: 15px;
-                top: 70%;
-                color: #ccc;
-                cursor: pointer;
-                transform: translateY(-50%);
-            }
-
-            .form form .field i.active::before {
-                color: #333;
-                content: "\f070";
-            }
-
-            .form .link {
-                text-align: center;
-                margin: 10px 0;
-                font-size: 17px;
-            }
-
-            .form .link a {
-                color: #333;
-            }
-
-            .form .link a:hover {
-                text-decoration: underline;
-            }
-
-            .form form .field {
-                font-size: 72px;
-                display: flex;
             }
 
             table {
@@ -217,11 +121,11 @@
                 width: 450px;
             }
 
-            section {
-                display: flex;
-            }
-
     /*Navigation Menu */
+
+    #menu {
+        /* display: block; */
+    }
 
     .menu-ul {
         list-style-type: none;
@@ -280,19 +184,22 @@
 {% endblock %}
 
 {% block menu %}
-<ul class="menu-ul">
-    <li class="menu-li"><a href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i>Home</a></li>
-    <li class="menu-li"><a href="{% url 'play' %}"><i class="fa fa-fw fa-gamepad"></i>Play</a></li>
-    <li class="menu-li"><a href="{% url 'results' %}"><i class="fa fa-fw fa-book"></i>Results</a></li>
-    <li class="menu-li"><a href="{% url 'logout' %}"><i class="fa fa-fw fa-user"></i>Logout</a></li>
-</ul>
+<div id="menu">
+    <ul class="menu-ul">
+        <li class="menu-li"><a href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i>Home</a></li>
+        <li class="menu-li"><a href="{% url 'play' %}"><i class="fa fa-fw fa-gamepad"></i>Play</a></li>
+        <li class="menu-li"><a href="{% url 'results' %}"><i class="fa fa-fw fa-book"></i>Results</a></li>
+        <li class="menu-li"><a href="{% url 'logout' %}"><i class="fa fa-fw fa-user"></i>Logout</a></li>
+    </ul>
+</div>
 {% endblock %}
 
 
 {% block body %}
 <div class="wrapper">
-    <section class="form calcuation">
+    <section class="section">
         <header>
+            <div class="header">Please Calculate</div>
             <div id="row">
                 <div>Timer:</div>
                 <div id="timer">0</div>
@@ -378,6 +285,26 @@
                 }
 
                 function renderProblem() {
+
+                    const button_style = {
+                        height: "45px",
+                        border: "none",
+                        color: "#fff",
+                        fontSize: "17px",
+                        background: "#333",
+                        width: "400px",
+                        padding: "10px",
+                        margin: "10px"
+                    };
+
+                    const input_style = {
+                        height: "45px",
+                        width: "400px",
+                        fontSize: "24px",
+                        padding: "10px",
+                        margin: "10px"
+                    };
+
                     return (
                         <div>
                             <div id="row">
@@ -389,8 +316,13 @@
                                 {state.num1} + {state.num2}
                             </div>
 
-                            <input onKeyPress={inputKeyPress} onChange={updateResponse} autoFocus={true} value={state.response} />
-                            <button onClick={submitInput}>Submit</button>
+                            <div class="input">
+                                <input style={input_style} onKeyPress={inputKeyPress} onChange={updateResponse} autoFocus={true} value={state.response} />
+                            </div>
+
+                            <div class="button">
+                                <button style={button_style} onClick={submitInput}>Submit</button>
+                            </div>
 
                         </div>
                     )
